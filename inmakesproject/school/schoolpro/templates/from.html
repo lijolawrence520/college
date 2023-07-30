@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link href="{%static 'regg1.css' %}" rel="stylesheet" >
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+
+<div class="wrapper" style="margin-left:600px;margin-top:50px; ">
+    <h2>Student Form</h2>
+    <form  method="POST">
+      {% csrf_token %}
+      <div class="input-box">
+        <input type="text" placeholder="Enter your name" name="username" required>
+      </div>
+      <div class="input-box">
+        <input type="text" placeholder="Enter your email" name="email" required>
+      </div>
+      <div class="input-box">
+        <input type="number" placeholder="Age"  name="age" required>
+      </div>
+        <div class="box radio" style="width:400px">
+          <label for="gender" class="fl fontLabel"> Gender: </label>&nbsp; &nbsp; &nbsp; &nbsp;
+    				<input type="radio" name="gender" value="Male"  style="width:80px;" required>Male
+    				<input type="radio" name="gender" value="Female" style="width:80px;" required> Female
+    		</div>
+
+
+        <div class="input-box">
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Enter your phone number" required>
+        </div>
+
+        <div class="input-box">
+        <input type="text" placeholder="Address"  name="address" required>
+      </div>
+
+
+        Department: <select name="subject" id="subject">
+    <option value="" selected="selected">Select subject</option>
+  </select>
+  <br><br>
+  Course: <select name="topic" id="topic">
+    <option value="" selected="selected">Please select subject first</option>
+  </select>
+  <br><br>
+<!--  Chapters: <select name="chapter" id="chapter">-->
+<!--    <option value="" selected="selected">Please select topic first</option>-->
+<!--  </select>-->
+<!--  <br><br>-->
+
+    <script>
+
+        var subjectObject = {
+  "Computer Science": {
+    "Bsc CS": ["Links", "Images", "Tables", "Lists"],
+    "Btec CS": ["Borders", "Margins", "Backgrounds", "Float"],
+    "Mtec CS": ["Variables", "Operators", "Functions", "Conditions"],
+    "BCA": ["Variables", "Operators", "Functions", "Conditions"],
+  },
+  "Biology": {
+    "Botany": ["Variables", "Strings", "Arrays"],
+    "Zoology": ["SELECT", "UPDATE", "DELETE"],
+    "Biotechnology":["SELECT", "UPDATE", "DELETE"],
+  },
+  "Physics": {
+    "Bsc physics": ["Links", "Images", "Tables", "Lists"],
+    "Msc physics": ["Borders", "Margins", "Backgrounds", "Float"],
+    "Astrophysics": ["Variables", "Operators", "Functions", "Conditions"],
+  },
+  "Commerce": {
+    "Bcom": ["Links", "Images", "Tables", "Lists"],
+    "BBA": ["Borders", "Margins", "Backgrounds", "Float"],
+    "MBA": ["Variables", "Operators", "Functions", "Conditions"],
+  },
+  "Humanities": {
+    "MSW": ["Links", "Images", "Tables", "Lists"],
+    "Sociology": ["Borders", "Margins", "Backgrounds", "Float"],
+    "Psychology": ["Variables", "Operators", "Functions", "Conditions"],
+  }
+}
+window.onload = function() {
+  var subjectSel = document.getElementById("subject");
+  var topicSel = document.getElementById("topic");
+  var chapterSel = document.getElementById("chapter");
+  for (var x in subjectObject) {
+    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+  }
+  subjectSel.onchange = function() {
+    //empty Chapters- and Topics- dropdowns
+    chapterSel.length = 1;
+    topicSel.length = 1;
+    //display correct values
+    for (var y in subjectObject[this.value]) {
+      topicSel.options[topicSel.options.length] = new Option(y, y);
+    }
+  }
+  topicSel.onchange = function() {
+    //empty Chapters dropdown
+    chapterSel.length = 1;
+    //display correct values
+    var z = subjectObject[subjectSel.value][this.value];
+    for (var i = 0; i < z.length; i++) {
+      chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+    }
+  }
+}
+</script>
+
+
+<!--        <div class="input-box">-->
+<!--        <input type="text" list="dep" name="department" placeholder="Department">-->
+<!--      <datalist  id="dep" name="dep" onchange="populate(this.id,'dep1')">-->
+<!--        <option value="Computer Science">-->
+<!--        <option value="Biology">-->
+<!--        <option value="Physics">-->
+<!--        <option value="Commerce">-->
+<!--          <option value="Humanities">-->
+<!--      </datalist>-->
+<!--      </div>-->
+
+<!--         <div class="input-box">-->
+<!--        <input type="text" list="dep1" name="department1" placeholder="Department">-->
+<!--      <datalist  id="dep1" name="dep11" >-->
+
+<!--      </datalist>-->
+<!--      </div>-->
+<!--      <script>-->
+<!--          function populate(s1,s2)-->
+<!--          {-->
+<!--             var s1 = document.getElementById(s1);-->
+<!--             var s2 = document.getElementById(s2);-->
+
+<!--             s2.innerHTML = "";-->
+
+<!--             if(s1.value ==  "Computer Science")-->
+<!--             {-->
+<!--               var optionArray=['cs1|CS1','cs2|CS2','cs3|CS3'];-->
+<!--             }-->
+
+<!--             else if(s1.value ==  "Biology")-->
+<!--             {-->
+<!--               var optionArray=['b1|B1','b2|B2','b3|B3'];-->
+<!--             }-->
+
+<!--             for (var option in optionArray)-->
+<!--             {-->
+<!--                var pair = optionArray[option].split("|");-->
+<!--                var newoption = document.createElement("option");-->
+
+<!--                newoption.value = pair[0];-->
+<!--                newoption.innerHTM L= pair[1];-->
+<!--                s2.option.add(newoption);-->
+
+<!--             }-->
+
+<!--          }-->
+
+
+
+<!--      </script>-->
+<!--     <div class="input-group">-->
+<!--  <input type="text" class="form-control" aria-label="Text input with dropdown button">-->
+<!--  <div class="input-group-append">-->
+<!--    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>-->
+<!--    <div class="dropdown-menu">-->
+<!--      <a class="dropdown-item" href="#">Action</a>-->
+<!--      <a class="dropdown-item" href="#">Another action</a>-->
+<!--      <a class="dropdown-item" href="#">Something else here</a>-->
+<!--      <div role="separator" class="dropdown-divider"></div>-->
+<!--      <a class="dropdown-item" href="#">Separated link</a>-->
+<!--        -->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+<!--      <div class="policy">-->
+<!--        <input type="checkbox">-->
+<!--        <h3>I accept all terms & condition</h3>-->
+<!--      </div>-->
+      <div class="input-box button">
+        <input type="submit" value="Register Now">
+      </div>
+      <div class="text">
+        <h3>Already have an account? <a href="#">Login now</a></h3>
+      </div>
+      <div>
+    <h2>
+
+    {% for msg in messages %}
+    {{msg}}
+
+    {% endfor %}
+
+     </h2>
+</div>
+    </form>
+  </div>
+
+
+
+{% endblock %}

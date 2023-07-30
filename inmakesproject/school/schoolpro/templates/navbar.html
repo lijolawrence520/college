@@ -1,0 +1,58 @@
+{% if id >= 1 %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary" >
+      <a class="navbar-brand" style="padding-left:300px;" href="{% url 'hom' %}">Gradient School</a>
+</nav>
+{% else %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary" >
+  <div class="container-fluid" >
+    <a class="navbar-brand" style="padding-left:300px;" href="{% url 'hom' %}">Gradient School</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll" >
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        {% if user.is_authenticated %}
+
+
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'form' %}">Student Form</a>
+        </li>
+        <li class="nav-item">
+          <h3 style="padding-left:90px;">Hai:  </h3>
+        </li>
+
+        <li class="nav-item">
+
+          <h3 style="padding-left:20px;">{{user.username}}</h3>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'reg' %}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'log' %}">Login</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Department
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'cs' id=1 %}">Computer Science</a></li>
+            <li><a class="dropdown-item" href="{% url 'cs' id=2 %}">Biology</a></li>
+            <li><a class="dropdown-item" href="{% url 'cs' id=3 %}">Physics</a></li>
+            <li><a class="dropdown-item" href="{% url 'cs' id=4 %}">Commerce</a></li>
+            <li><a class="dropdown-item" href="{% url 'cs' id=5 %}">Humanities</a></li>
+
+          </ul>
+        </li>
+         {% endif %}
+      </ul>
+
+    </div>
+  </div>
+</nav>
+{% endif %}
+
